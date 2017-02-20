@@ -71,20 +71,25 @@ function loadAPIClientInterfaces() {
   //AIzaSyCDxkmg_USqjmFykXV4qcC22xbYXqXAkOU api key
   // After the API loads, call a function to enable the search box.
 function handleAPILoaded() {
-  $('#search-button').attr('disabled', false);
+  $('#search').attr('disabled', false);
 }
 
+$('#search').click(function(){
+  search();
+  console.log('searching');
+});
 // Search for a specified string.
 function search() {
-  var q = 'chocolate rain';
+  var q = $('query').val();
   var request = gapi.client.youtube.search.list({
     q: q,
     part: 'snippet'
   });
-
+  console.log(q);
   request.execute(function(response) {
     var str = JSON.stringify(response.result);
-    $('#search-container').html('<pre>' + str + '</pre>');
+    //$('#search-container').html('<pre>' + str + '</pre>');
+    console.log(str);
   });
 }
   </script>
@@ -122,6 +127,10 @@ function search() {
           </div>
           <div class="col-sm-2">
           </div>
+        </div>
+        <div class="row">
+          <input id="query" type="text"></input>
+          <input id="search" type="button" value="Search"></input>
         </div>
       </div>
       <div class="col-md-2 side">
