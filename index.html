@@ -74,9 +74,10 @@ function handleAPILoaded() {
   $('#search').attr('disabled', false);
 }
 
-$('#search').click(function(){
-  search();
+$(document).on('click', "#search", function(evt)
+{
   console.log('searching');
+  search();
 });
 // Search for a specified string.
 function search() {
