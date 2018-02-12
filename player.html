@@ -61,7 +61,7 @@ if ($.getUrlVar('room_id'))
 $("#title").html(room_id);
 
 var roomRef = firebase.database().ref('rooms/' + room_id + '/queue');
-starCountRef.on('value', function(snapshot) {
+roomRef.on('value', function(snapshot) {
 	console.log(snapshot.val());
   $("#song").html(snapshot.val());
 });
