@@ -1,0 +1,69 @@
+<!Doctype HTML>
+<html>
+<head>
+  <title>Party Music Player</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="main.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://apis.google.com/js/client.js?onload=googleApiClientReady"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase-database.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/4.9.1/firebase.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDO0oEHzN2sRpGOq1v2RmH4UAF36AMETuc",
+      authDomain: "socialmusic-af39c.firebaseapp.com",
+      databaseURL: "https://socialmusic-af39c.firebaseio.com",
+      projectId: "socialmusic-af39c",
+      storageBucket: "socialmusic-af39c.appspot.com",
+      messagingSenderId: "1091771452022"
+    };
+    firebase.initializeApp(config);
+  </script>
+</script>
+</head>
+<body>
+  <div class="container">
+    <div id="room_id">
+			<h1 id="title">ROOM ID</h1>
+		</div>
+		<div id="controls">
+		</div>
+		<div id="queue">
+			<p id="song">SONG NAME</p>
+		</div>
+  </div>
+</body>
+<script>
+// A short jQuery extension to read query parameters from the URL.
+$.extend({
+  getUrlVars: function() {
+    var vars = [], pair;
+    var pairs = window.location.search.substr(1).split('&');
+    for (var i = 0; i < pairs.length; i++) {
+      pair = pairs[i].split('=');
+      vars.push(pair[0]);
+      vars[pair[0]] = pair[1] &&
+          decodeURIComponent(pair[1].replace(/\+/g, ' '));
+    }
+    return vars;
+  },
+  getUrlVar: function(name) {
+    return $.getUrlVars()[name];
+  }
+});
+var room_id = "";
+if ($.getUrlVar('room_id'))
+{
+	room_id = $.getUrlVar('room_id');
+}
+$("#title").html(room_id);
+
+var roomRef = firebase.database().ref('rooms/' + room_id + '/queue');
+starCountRef.on('value', function(snapshot) {
+	console.log(snapshot.val());
+  $("#song").html(snapshot.val());
+});
+
+</script>
